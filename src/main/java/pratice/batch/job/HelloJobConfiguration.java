@@ -1,4 +1,4 @@
-package pratice.batch;
+package pratice.batch.job;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

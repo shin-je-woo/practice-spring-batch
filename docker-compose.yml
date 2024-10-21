@@ -1,0 +1,13 @@
+services:
+  mysql:
+    image: 'mysql:8.0.36'
+    container_name: batch-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=practice_batch
+      - MYSQL_USER=batch_user
+      - MYSQL_PASSWORD=batch_password
+    volumes:
+      - ./.data/mysql:/var/lib/mysql
