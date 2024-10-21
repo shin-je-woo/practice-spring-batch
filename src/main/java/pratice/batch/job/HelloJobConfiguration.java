@@ -3,6 +3,7 @@ package pratice.batch.job;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
@@ -11,6 +12,8 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import java.time.LocalDate;
 
 @Slf4j
 @Configuration
@@ -29,6 +32,11 @@ public class HelloJobConfiguration {
     public Step helloStep1(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("helloStep1", jobRepository)
                 .tasklet(((contribution, chunkContext) -> {
+                    JobParameters jobParameters = contribution.getStepExecution().getJobExecution().getJobParameters();
+                    String name = jobParameters.getString("name");
+                    Long seq = jobParameters.getLong("seq");
+                    LocalDate date = jobParameters.getLocalDate("date");
+                    Double age = jobParameters.getDouble("age");
                     log.info("Hello Spring Batch 1 !!");
                     return RepeatStatus.FINISHED;
                 }), transactionManager)
