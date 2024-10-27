@@ -1,9 +1,11 @@
-package pratice.batch;
+package practice.batch;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
-@SpringBootApplication
+@Import(ExecutionContextSerializerConfig.class)
+@SpringBootApplication(scanBasePackages = "practice.batch.executionContext")
 public class PracticeBatchApplication {
 
 	public static void main(String[] args) {
