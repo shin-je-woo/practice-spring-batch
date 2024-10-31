@@ -1,4 +1,4 @@
-package practice.batch.jobRepository;
+package practice.batch.batchDomain.jobRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

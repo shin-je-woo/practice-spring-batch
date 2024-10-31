@@ -1,4 +1,4 @@
-package practice.batch.validator;
+package practice.batch.job.validator;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

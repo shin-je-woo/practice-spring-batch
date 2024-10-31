@@ -1,4 +1,4 @@
-package practice.batch.validator;
+package practice.batch.job.validator;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

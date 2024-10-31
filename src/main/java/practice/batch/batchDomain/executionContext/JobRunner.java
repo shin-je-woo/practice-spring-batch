@@ -1,4 +1,4 @@
-package practice.batch.jobRepository;
+package practice.batch.batchDomain.executionContext;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

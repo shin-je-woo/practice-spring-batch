@@ -1,4 +1,4 @@
-package practice.batch.executionContext;
+package practice.batch.batchDomain.jobRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -6,57 +6,39 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
-import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @RequiredArgsConstructor
-public class ExecutionContextConfiguration {
+public class JobRepositoryConfiguration {
 
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
-    private final Tasklet executionContextTasklet1;
-    private final Tasklet executionContextTasklet2;
-    private final Tasklet executionContextTasklet3;
-    private final Tasklet executionContextTasklet4;
+    private final JobRepositoryListener jobRepositoryListener;
 
     @Bean
     public Job batchJob() {
-        return new JobBuilder("executionContextJob", jobRepository)
+        return new JobBuilder("job", jobRepository)
                 .start(step1())
                 .next(step2())
-                .next(step3())
-                .next(step4())
+                .listener(jobRepositoryListener)
                 .build();
     }
 
     @Bean
     public Step step1() {
         return new StepBuilder("step1", jobRepository)
-                .tasklet(executionContextTasklet1, transactionManager)
+                .tasklet((contribution, chunkContext) -> RepeatStatus.FINISHED, transactionManager)
                 .build();
     }
 
     @Bean
     public Step step2() {
         return new StepBuilder("step2", jobRepository)
-                .tasklet(executionContextTasklet2, transactionManager)
-                .build();
-    }
-
-    @Bean
-    public Step step3() {
-        return new StepBuilder("step3", jobRepository)
-                .tasklet(executionContextTasklet3, transactionManager)
-                .build();
-    }
-
-    @Bean
-    public Step step4() {
-        return new StepBuilder("step4", jobRepository)
-                .tasklet(executionContextTasklet4, transactionManager)
+                .tasklet((contribution, chunkContext) -> RepeatStatus.FINISHED, transactionManager)
                 .build();
     }
 }
