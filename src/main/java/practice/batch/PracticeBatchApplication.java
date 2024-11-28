@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @Import(ExecutionContextSerializerConfig.class)
-@SpringBootApplication(scanBasePackages = "practice.batch.flow.transition")
+@SpringBootApplication(scanBasePackages = "practice.batch.flow.latebinding")
 public class PracticeBatchApplication {
 
 	public static void main(String[] args) {
