@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @Import(ExecutionContextSerializerConfig.class)
-@SpringBootApplication(scanBasePackages = "practice.batch.chunk.chunkOrientedTasklet")
+@SpringBootApplication(scanBasePackages = "practice.batch.chunk.jdbcCursorItemReader")
 public class PracticeBatchApplication {
 
 	public static void main(String[] args) {
