@@ -4,6 +4,13 @@ spring:
       initialize-schema: always
     job:
       enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
   datasource:
     url: jdbc:mysql://localhost:3306/practice_batch?serverTimezone=Asia/Seoul
     username: batch_user

@@ -8,3 +8,25 @@ INSERT INTO `customer` (`id`,`first_name`,`last_name`,`birth_date`) VALUES (61,"
 INSERT INTO `customer` (`id`,`first_name`,`last_name`,`birth_date`) VALUES (71,"Olga","Mays","1981-11-20 22:39:27"),(72,"Ferdinand","Austin","1956-08-08 09:08:02"),(73,"Zenia","Anthony","1964-08-21 05:45:16"),(74,"Hop","Hampton","1982-07-22 14:11:00"),(75,"Shaine","Vang","1970-08-13 15:58:28"),(76,"Ariana","Cochran","1959-12-04 01:18:36"),(77,"India","Paul","1963-10-10 05:24:03"),(78,"Karina","Doyle","1979-12-01 00:05:21"),(79,"Delilah","Johnston","1989-03-04 23:50:01"),(80,"Hilel","Hood","1959-08-22 06:40:48");
 INSERT INTO `customer` (`id`,`first_name`,`last_name`,`birth_date`) VALUES (81,"Kennedy","Hoffman","1963-10-14 20:18:35"),(82,"Kameko","Bell","1976-06-08 15:35:54"),(83,"Lunea","Gutierrez","1964-06-07 16:21:24"),(84,"William","Burris","1980-05-01 17:58:23"),(85,"Kiara","Walls","1955-12-27 18:57:15"),(86,"Latifah","Alexander","1980-06-19 10:39:50"),(87,"Keaton","Ward","1964-10-12 16:03:18"),(88,"Jasper","Clements","1970-03-05 00:29:49"),(89,"Claire","Brown","1972-02-11 00:43:58"),(90,"Noble","Morgan","1955-09-05 05:35:01");
 INSERT INTO `customer` (`id`,`first_name`,`last_name`,`birth_date`) VALUES (91,"Evangeline","Horn","1952-12-28 14:06:27"),(92,"Jonah","Harrell","1951-06-25 17:37:35"),(93,"Mira","Espinoza","1982-03-26 06:01:16"),(94,"Brennan","Oneill","1979-04-23 08:49:02"),(95,"Dacey","Howe","1983-02-06 19:11:00"),(96,"Yoko","Pittman","1982-09-12 02:18:52"),(97,"Cody","Conway","1971-05-26 07:09:58"),(98,"Jordan","Knowles","1981-12-30 02:20:01"),(99,"Pearl","Boyer","1957-10-19 14:26:49"),(100,"Keely","Montoya","1985-03-24 01:18:09");
+
+INSERT INTO `user` (id, username, age) VALUES (1, 'user1', 30);
+INSERT INTO `user` (id, username, age) VALUES (2, 'user2', 31);
+INSERT INTO `user` (id, username, age) VALUES (3, 'user3', 32);
+INSERT INTO `user` (id, username, age) VALUES (4, 'user4', 33);
+INSERT INTO `user` (id, username, age) VALUES (5, 'user5', 34);
+INSERT INTO `user` (id, username, age) VALUES (6, 'user6', 35);
+INSERT INTO `user` (id, username, age) VALUES (7, 'user7', 36);
+INSERT INTO `user` (id, username, age) VALUES (8, 'user8', 37);
+INSERT INTO `user` (id, username, age) VALUES (9, 'user9', 38);
+INSERT INTO `user` (id, username, age) VALUES (10, 'user10', 39);
+
+INSERT INTO `address` (id, location, user_id) VALUES (1, 'location1', 1);
+INSERT INTO `address` (id, location, user_id) VALUES (2, 'location2', 2);
+INSERT INTO `address` (id, location, user_id) VALUES (3, 'location3', 3);
+INSERT INTO `address` (id, location, user_id) VALUES (4, 'location4', 4);
+INSERT INTO `address` (id, location, user_id) VALUES (5, 'location5', 5);
+INSERT INTO `address` (id, location, user_id) VALUES (6, 'location6', 6);
+INSERT INTO `address` (id, location, user_id) VALUES (7, 'location7', 7);
+INSERT INTO `address` (id, location, user_id) VALUES (8, 'location8', 8);
+INSERT INTO `address` (id, location, user_id) VALUES (9, 'location9', 9);
+INSERT INTO `address` (id, location, user_id) VALUES (10, 'location10', 10);
