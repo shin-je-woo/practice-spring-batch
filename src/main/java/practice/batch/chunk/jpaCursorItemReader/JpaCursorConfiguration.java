@@ -1,5 +1,6 @@
-package practice.batch.chunk.jdbcCursorItemReader;
+package practice.batch.chunk.jpaCursorItemReader;
 
+import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -9,20 +10,20 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
+import org.springframework.batch.item.database.builder.JpaCursorItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
+;import java.util.HashMap;
 
 @Configuration
 @RequiredArgsConstructor
-public class JdbcCursorConfiguration {
+public class JpaCursorConfiguration {
     private final JobRepository jobRepository;
     private final PlatformTransactionManager transactionManager;
-    private final DataSource dataSource;
-    private static final int CHUNK_SIZE = 10;
+    private final EntityManagerFactory entityManagerFactory;
+    private static final int CHUNK_SIZE = 5;
 
     @Bean
     public Job job() {
@@ -43,18 +44,18 @@ public class JdbcCursorConfiguration {
 
     @Bean
     public ItemReader<Customer> itemReader() {
-        return new JdbcCursorItemReaderBuilder<Customer>()
-            .name("customerItemReader")
-            .beanRowMapper(Customer.class)
-            .fetchSize(CHUNK_SIZE)
-            .sql("""
-                select id, first_name, last_name, birth_date
-                from customer
-                where first_name like ?
-                order by last_name, first_name
+        final HashMap<String, Object> parameters = new HashMap<>();
+        parameters.put("firstName", "A%");
+
+        return new JpaCursorItemReaderBuilder<Customer>()
+            .name("jpaCursorItemReader")
+            .entityManagerFactory(entityManagerFactory)
+            .queryString("""
+                select c
+                from Customer c
+                where c.firstName like :firstName
                 """)
-            .queryArguments("A%")
-            .dataSource(dataSource)
+            .parameterValues(parameters)
             .build();
     }
 
