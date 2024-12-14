@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @Import(ExecutionContextSerializerConfig.class)
-@SpringBootApplication(scanBasePackages = "practice.batch.faultTolerant")
+@SpringBootApplication(scanBasePackages = "practice.batch.faultTolerant.skip")
 public class PracticeBatchApplication {
 
 	public static void main(String[] args) {
