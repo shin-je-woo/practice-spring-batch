@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @Import(ExecutionContextSerializerConfig.class)
-@SpringBootApplication(scanBasePackages = "practice.batch.chunk.jpaCursorItemReader")
+@SpringBootApplication(scanBasePackages = "practice.batch.faultTolerant")
 public class PracticeBatchApplication {
 
 	public static void main(String[] args) {
