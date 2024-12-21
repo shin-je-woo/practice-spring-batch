@@ -1,0 +1,16 @@
+### START
+POST http://localhost:8080/batch/start
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+
+### STOP
+POST http://localhost:8080/batch/stop
+Content-Type: application/json
+
+### RESTART
+POST http://localhost:8080/batch/restart
+Content-Type: application/json
