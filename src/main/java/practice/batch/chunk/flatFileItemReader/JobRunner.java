@@ -1,4 +1,4 @@
-package practice.batch.chunk.platFileItemReader;
+package practice.batch.chunk.flatFileItemReader;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;

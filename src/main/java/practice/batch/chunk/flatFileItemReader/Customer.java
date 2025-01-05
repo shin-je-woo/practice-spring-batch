@@ -1,4 +1,4 @@
-package practice.batch.chunk.platFileItemReader;
+package practice.batch.chunk.flatFileItemReader;
 
 public record Customer(
         String name,

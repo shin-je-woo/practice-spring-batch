@@ -1,4 +1,4 @@
-package practice.batch.chunk.platFileItemReader;
+package practice.batch.chunk.flatFileItemReader;
 
 import jakarta.annotation.Nonnull;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
