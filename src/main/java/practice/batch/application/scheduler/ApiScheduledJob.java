@@ -1,23 +1,27 @@
-package practice.batch.application.runner;
+package practice.batch.application.scheduler;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.explore.JobExplorer;
 import org.springframework.batch.core.launch.JobLauncher;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.scheduling.quartz.QuartzJobBean;
+import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 @RequiredArgsConstructor
-public class ApiJobRunner implements ApplicationRunner {
-    private final JobLauncher jobLauncher;
-    private final JobExplorer jobExplorer;
+public class ApiScheduledJob extends QuartzJobBean {
     private final Job apiJob;
+    private final JobExplorer jobExplorer;
+    private final JobLauncher jobLauncher;
 
+    @SneakyThrows
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
         final JobParameters jobParameters = new JobParametersBuilder(jobExplorer)
                 .getNextJobParameters(apiJob)
                 .toJobParameters();
