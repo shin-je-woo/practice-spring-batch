@@ -1,4 +1,19 @@
 services:
+  batch-api-server1:
+    image: 'shinjewoo/batch-api-server'
+    container_name: 'batch-api-server1'
+    ports:
+      - "8081:8080"
+  batch-api-server2:
+    image: 'shinjewoo/batch-api-server'
+    container_name: 'batch-api-server2'
+    ports:
+      - "8082:8080"
+  batch-api-server3:
+    image: 'shinjewoo/batch-api-server'
+    container_name: 'batch-api-server3'
+    ports:
+      - "8083:8080"
   mysql:
     image: 'mysql:8.0.36'
     container_name: batch-mysql

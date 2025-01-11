@@ -14,7 +14,7 @@ public class QueryGenerator {
         return jdbcTemplate.query("""
                         select type
                         from product
-                        group by product
+                        group by type
                         """,
                 (rs, rowNum) -> rs.getString("type")
         );

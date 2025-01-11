@@ -22,16 +22,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.transaction.PlatformTransactionManager;
-import practice.batch.application.batch.dto.ApiRequestDto;
+import practice.batch.application.batch.dto.ApiRequest;
 import practice.batch.application.batch.dto.ProductDto;
-import practice.batch.application.batch.utils.QueryGenerator;
 import practice.batch.application.batch.partition.ProductPartitioner;
 import practice.batch.application.batch.processor.ApiItemProcessor1;
 import practice.batch.application.batch.processor.ApiItemProcessor2;
 import practice.batch.application.batch.processor.ApiItemProcessor3;
+import practice.batch.application.batch.rowmapper.ProductDtoRowMapper;
+import practice.batch.application.batch.utils.QueryGenerator;
 import practice.batch.application.batch.writer.ApiItemWriter1;
 import practice.batch.application.batch.writer.ApiItemWriter2;
 import practice.batch.application.batch.writer.ApiItemWriter3;
+import practice.batch.application.service.ApiService1;
+import practice.batch.application.service.ApiService2;
+import practice.batch.application.service.ApiService3;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -44,6 +48,10 @@ public class ApiStepConfiguration {
     private final PlatformTransactionManager transactionManager;
     private final DataSource dataSource;
     private static final int CHUNK_SIZE = 10;
+
+    private final ApiService1 apiService1;
+    private final ApiService2 apiService2;
+    private final ApiService3 apiService3;
 
     @Bean
     public Step apiManagerStep() {
@@ -58,7 +66,7 @@ public class ApiStepConfiguration {
     @Bean
     public Step apiWorkerStep() {
         return new StepBuilder("apiWorkerStep", jobRepository)
-                .<ProductDto, ApiRequestDto>chunk(CHUNK_SIZE, transactionManager)
+                .<ProductDto, ApiRequest>chunk(CHUNK_SIZE, transactionManager)
                 .reader(itemReader(null))
                 .processor(itemProcessor())
                 .writer(itemWriter())
@@ -88,7 +96,7 @@ public class ApiStepConfiguration {
                 .name("jdbcPagingItemReader")
                 .pageSize(CHUNK_SIZE)
                 .dataSource(dataSource)
-                .beanRowMapper(ProductDto.class)
+                .rowMapper(new ProductDtoRowMapper())
                 .queryProvider(queryProvider())
                 .parameterValues(QueryGenerator.getParameterForQuery("type", productType))
                 .build();
@@ -115,14 +123,15 @@ public class ApiStepConfiguration {
      * 상품 타입에 따라 Processor를 결정한다.
      */
     @Bean
-    public ItemProcessor<ProductDto, ApiRequestDto> itemProcessor() {
-        Map<String, ItemProcessor<ProductDto, ApiRequestDto>> processorMap = new HashMap<>();
+    @StepScope
+    public ItemProcessor<ProductDto, ApiRequest> itemProcessor() {
+        Map<String, ItemProcessor<ProductDto, ApiRequest>> processorMap = new HashMap<>();
         processorMap.put("1", new ApiItemProcessor1());
         processorMap.put("2", new ApiItemProcessor2());
         processorMap.put("3", new ApiItemProcessor3());
 
-        return new ClassifierCompositeItemProcessorBuilder<ProductDto, ApiRequestDto>()
-                .classifier((Classifier<ProductDto, ItemProcessor<?, ? extends ApiRequestDto>>)
+        return new ClassifierCompositeItemProcessorBuilder<ProductDto, ApiRequest>()
+                .classifier((Classifier<ProductDto, ItemProcessor<?, ? extends ApiRequest>>)
                         classifiable -> processorMap.get(classifiable.type()))
                 .build();
     }
@@ -131,14 +140,15 @@ public class ApiStepConfiguration {
      * 상품 타입에 따라 Writer를 결정한다.
      */
     @Bean
-    public ItemWriter<ApiRequestDto> itemWriter() {
-        Map<String, ItemWriter<ApiRequestDto>> writerMap = new HashMap<>();
-        writerMap.put("1", new ApiItemWriter1());
-        writerMap.put("2", new ApiItemWriter2());
-        writerMap.put("3", new ApiItemWriter3());
+    @StepScope
+    public ItemWriter<ApiRequest> itemWriter() {
+        Map<String, ItemWriter<ApiRequest>> writerMap = new HashMap<>();
+        writerMap.put("1", new ApiItemWriter1(apiService1));
+        writerMap.put("2", new ApiItemWriter2(apiService2));
+        writerMap.put("3", new ApiItemWriter3(apiService3));
 
-        return new ClassifierCompositeItemWriterBuilder<ApiRequestDto>()
-                .classifier((Classifier<ApiRequestDto, ItemWriter<? super ApiRequestDto>>) classifiable ->
+        return new ClassifierCompositeItemWriterBuilder<ApiRequest>()
+                .classifier((Classifier<ApiRequest, ItemWriter<? super ApiRequest>>) classifiable ->
                         writerMap.get(classifiable.productDto().type()))
                 .build();
     }

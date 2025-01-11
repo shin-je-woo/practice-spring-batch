@@ -3,7 +3,7 @@ package practice.batch.application.batch.dto;
 import lombok.Builder;
 
 @Builder
-public record ApiRequestDto(
+public record ApiRequest(
         Long id,
         ProductDto productDto
 ) {

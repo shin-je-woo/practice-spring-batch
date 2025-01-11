@@ -12,18 +12,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class JobRunner implements ApplicationRunner {
-
+public class ApiJobRunner implements ApplicationRunner {
     private final JobLauncher jobLauncher;
     private final JobExplorer jobExplorer;
-    private final Job fileJob;
+    private final Job apiJob;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         final JobParameters jobParameters = new JobParametersBuilder(jobExplorer)
-                .getNextJobParameters(fileJob)
-                .addString("requestDate", "20250105")
+                .getNextJobParameters(apiJob)
                 .toJobParameters();
-        jobLauncher.run(fileJob, jobParameters);
+        jobLauncher.run(apiJob, jobParameters);
     }
 }

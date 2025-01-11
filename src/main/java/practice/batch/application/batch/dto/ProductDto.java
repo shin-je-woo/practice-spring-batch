@@ -9,4 +9,7 @@ public record ProductDto(
         int price,
         String type
 ) {
+    public ProductDto() {
+        this(0L, "defaultName", 0, "defaultType");
+    }
 }
