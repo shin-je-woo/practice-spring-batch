@@ -6,6 +6,13 @@ Spring Batch 를 사용해서 배치처리 해보기
 ## 학습 내용
 
 - Spring-Batch 환경 구성
+- 도메인 이해 – JobInstance, JobExecution, StepExecution, ExecutionContext, JobParameter, JobRepository, JobLauncher
+- Job 구성 및 API 활용 - Job, Step, Flow, Tasklet
+- Chunk 프로세스 – Chunk, ItemReader, ItemProcessor, ItemWriter
+- 반복 및 내결함성 – Repeat, Skip, Retry, Listener
+- 이벤트 리스너 – JobExecutionListener, StepListener, RetriyListner, SkipListener
+- 멀티 스레드 배치 처리 - MultiThread Batch Process
+- 테스트 및 운영 - TDD & JobExeplorer, JobRegistry, JobOperator
 
 ## 스프링 배치 5 Migration
 
