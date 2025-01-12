@@ -149,7 +149,7 @@ public class ApiStepConfiguration {
 
         return new ClassifierCompositeItemWriterBuilder<ApiRequest>()
                 .classifier((Classifier<ApiRequest, ItemWriter<? super ApiRequest>>) classifiable ->
-                        writerMap.get(classifiable.productDto().type()))
+                        writerMap.get(classifiable.getProductDto().type()))
                 .build();
     }
 }

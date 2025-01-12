@@ -1,10 +1,15 @@
 package practice.batch.application.batch.dto;
 
-import lombok.Builder;
+import lombok.*;
 
+@Getter
 @Builder
-public record ApiRequest(
-        Long id,
-        ProductDto productDto
-) {
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+public class ApiRequest {
+    private Long id;
+    private ProductDto productDto;
+    @Setter
+    private ApiResponse apiResponse;
 }
